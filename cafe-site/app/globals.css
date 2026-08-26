@@ -1,0 +1,197 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-jetbrains);
+  --font-heading: var(--font-prata);
+  --font-display: var(--font-prata);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-olive: var(--olive);
+  --color-cream: var(--cream);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ── Светлая «бумажная» тема (для секций меню) ───────────── */
+:root {
+  --background: #f7f3ec;
+  --foreground: #1c1812;
+  --card: #ffffff;
+  --card-foreground: #1c1812;
+  --popover: #ffffff;
+  --popover-foreground: #1c1812;
+  --primary: #c2431f;
+  --primary-foreground: #fff6ec;
+  --secondary: #eae2d2;
+  --secondary-foreground: #2a2418;
+  --muted: #eee8dc;
+  --muted-foreground: #6e6555;
+  --accent: #e6ddc9;
+  --accent-foreground: #1c1812;
+  --destructive: #c5383d;
+  --border: rgba(28, 24, 18, 0.1);
+  --input: rgba(28, 24, 18, 0.14);
+  --ring: #c2431f;
+  --chart-1: #c2431f;
+  --chart-2: #9a9b73;
+  --chart-3: #6e6555;
+  --chart-4: #e0a458;
+  --chart-5: #1c1812;
+  --olive: #7d7e5c;
+  --cream: #f5efe3;
+  --blueprint-line: rgba(28, 24, 18, 0.05);
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1c1812;
+  --sidebar-primary: #c2431f;
+  --sidebar-primary-foreground: #fff6ec;
+  --sidebar-accent: #eae2d2;
+  --sidebar-accent-foreground: #1c1812;
+  --sidebar-border: rgba(28, 24, 18, 0.1);
+  --sidebar-ring: #c2431f;
+}
+
+/* ── Тёмная «вечерняя» тема (по умолчанию) ───────────────── */
+.dark {
+  --background: #12100c;
+  --foreground: #f5efe3;
+  --card: #1a1712;
+  --card-foreground: #f5efe3;
+  --popover: #171410;
+  --popover-foreground: #f5efe3;
+  --primary: #e4572e;
+  --primary-foreground: #fff6ec;
+  --secondary: #241f17;
+  --secondary-foreground: #ede6d6;
+  --muted: #201b14;
+  --muted-foreground: #a89f8d;
+  --accent: #2a2419;
+  --accent-foreground: #f5efe3;
+  --destructive: #e5484d;
+  --border: rgba(245, 239, 227, 0.09);
+  --input: rgba(245, 239, 227, 0.12);
+  --ring: #e4572e;
+  --chart-1: #e4572e;
+  --chart-2: #9a9b73;
+  --chart-3: #a89f8d;
+  --chart-4: #e0a458;
+  --chart-5: #f5efe3;
+  --olive: #9a9b73;
+  --cream: #f5efe3;
+  --blueprint-line: rgba(245, 239, 227, 0.045);
+  --sidebar: #171410;
+  --sidebar-foreground: #f5efe3;
+  --sidebar-primary: #e4572e;
+  --sidebar-primary-foreground: #fff6ec;
+  --sidebar-accent: #2a2419;
+  --sidebar-accent-foreground: #f5efe3;
+  --sidebar-border: rgba(245, 239, 227, 0.09);
+  --sidebar-ring: #e4572e;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--muted);
+    border-radius: 8px;
+    border: 2px solid var(--background);
+  }
+}
+
+/* ── Утилиты ──────────────────────────────────────────────── */
+
+/* Светлый «бумажный» остров внутри тёмной страницы */
+.theme-paper {
+  --background: #f7f3ec;
+  --foreground: #1c1812;
+  --card: #ffffff;
+  --card-foreground: #1c1812;
+  --popover: #ffffff;
+  --popover-foreground: #1c1812;
+  --primary: #c2431f;
+  --primary-foreground: #fff6ec;
+  --secondary: #eae2d2;
+  --secondary-foreground: #2a2418;
+  --muted: #eee8dc;
+  --muted-foreground: #6e6555;
+  --accent: #e6ddc9;
+  --accent-foreground: #1c1812;
+  --border: rgba(28, 24, 18, 0.1);
+  --input: rgba(28, 24, 18, 0.14);
+  --ring: #c2431f;
+  --olive: #7d7e5c;
+  color-scheme: light;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 36s) linear infinite;
+}
+.marquee-paused:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}

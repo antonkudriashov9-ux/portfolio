@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <rect width="1600" height="1000" fill="#12100c"/>
+  <g stroke="#f5efe3" stroke-opacity="0.05">
+    <path d="M0 125H1600M0 250H1600M0 375H1600M0 500H1600M0 625H1600M0 750H1600M0 875H1600"/>
+    <path d="M200 0V1000M400 0V1000M600 0V1000M800 0V1000M1000 0V1000M1200 0V1000M1400 0V1000"/>
+  </g>
+  <g fill="none" stroke="#f5efe3" stroke-opacity="0.55" stroke-linecap="round">
+    <path d="M300 430 C 480 340, 700 520, 900 380" stroke-width="10"/>
+    <path d="M320 500 C 500 410, 720 590, 920 450" stroke-width="10"/>
+    <path d="M340 570 C 520 480, 740 660, 940 520" stroke-width="10"/>
+    <path d="M360 640 C 540 550, 760 730, 960 590" stroke-width="10"/>
+  </g>
+  <text x="1060" y="470" font-family="Georgia, serif" font-size="64" fill="#f5efe3">Не только</text>
+  <text x="1060" y="560" font-family="Georgia, serif" font-size="64" fill="#e4572e">макароны</text>
+  <text x="1060" y="640" font-family="monospace" font-size="22" letter-spacing="4" fill="#9a9b73">NEXT.JS 16 · CRM · GSAP</text>
+  <text x="48" y="940" font-family="monospace" font-size="20" fill="#8c97ab">placeholder // замени на скриншот /images/projects/ne-tolko-makarony.webp</text>
+</svg>

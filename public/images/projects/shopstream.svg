@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#e9eef5" stroke-opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b101a"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <g>
+    <rect width="1600" height="64" fill="#10151f"/>
+    <circle cx="36" cy="32" r="7" fill="#ef4444" opacity="0.7"/>
+    <circle cx="60" cy="32" r="7" fill="#ffc46b" opacity="0.7"/>
+    <circle cx="84" cy="32" r="7" fill="#ffb03a" opacity="0.7"/>
+    <rect x="560" y="16" width="480" height="32" rx="8" fill="#141b29"/>
+    <text x="800" y="37" font-family="monospace" font-size="15" fill="#8c97ab" text-anchor="middle">https://example.com</text>
+  </g>
+  <text x="800" y="470" font-family="monospace" font-size="96" font-weight="bold" letter-spacing="8" fill="#e9eef5" text-anchor="middle">SHOPSTREAM</text>
+  <text x="800" y="540" font-family="monospace" font-size="26" letter-spacing="6" fill="#ffb03a" text-anchor="middle">// e-commerce · live demo placeholder</text>
+  <text x="48" y="940" font-family="monospace" font-size="20" fill="#8c97ab">placeholder // замени на реальный скриншот /images/projects/shopstream.webp</text>
+</svg>

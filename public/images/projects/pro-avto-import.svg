@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <pattern id="grid-ai" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M80 0H0V80" fill="none" stroke="#e9eef5" stroke-opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="#0b101a"/>
+  <rect width="1600" height="1000" fill="url(#grid-ai)"/>
+  <g>
+    <rect width="1600" height="64" fill="#10151f"/>
+    <circle cx="36" cy="32" r="7" fill="#ef4444" opacity="0.7"/>
+    <circle cx="60" cy="32" r="7" fill="#ffc46b" opacity="0.7"/>
+    <circle cx="84" cy="32" r="7" fill="#ffb03a" opacity="0.7"/>
+    <rect x="480" y="16" width="640" height="32" rx="8" fill="#141b29"/>
+    <text x="800" y="37" font-family="monospace" font-size="15" fill="#8c97ab" text-anchor="middle">proavtoimport.ru</text>
+  </g>
+  <text x="800" y="430" font-family="monospace" font-size="72" font-weight="bold" letter-spacing="4" fill="#e9eef5" text-anchor="middle">PRO АВТО ИМПОРТ</text>
+  <text x="800" y="500" font-family="monospace" font-size="30" letter-spacing="6" fill="#ffb03a" text-anchor="middle">ЯПОНИЯ · КОРЕЯ · КИТАЙ</text>
+  <g font-family="monospace" font-size="20" fill="#8c97ab" text-anchor="middle">
+    <text x="420" y="620">каталог</text>
+    <text x="620" y="620">подбор под ключ</text>
+    <text x="880" y="620">личный кабинет</text>
+    <text x="1150" y="620">эскроу · СБКТС · ЭПТС</text>
+  </g>
+  <text x="48" y="940" font-family="monospace" font-size="20" fill="#8c97ab">placeholder // замени на реальный скриншот /images/projects/pro-avto-import.webp</text>
+</svg>

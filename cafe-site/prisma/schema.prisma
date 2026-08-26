@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id           String    @id @default(cuid())
+  slug         String    @unique
+  name         String
+  address      String
+  phone        String
+  hours        String
+  mapUrl       String?
+  yandexRating Float?
+  yandexCount  Int?
+  openHour     Int       @default(8)
+  closeHour    Int       @default(23)
+  slotInterval Int       @default(60)
+  slotCapacity Int       @default(8)
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  bookings     Booking[]
+}
+
+model Guest {
+  id        String    @id @default(cuid())
+  phone     String    @unique
+  name      String?
+  birthday  DateTime?
+  notes     String?
+  tags      String?
+  createdAt DateTime  @default(now())
+  bookings  Booking[]
+}
+
+model Booking {
+  id          String    @id @default(cuid())
+  locationId  String
+  location    Location  @relation(fields: [locationId], references: [id])
+  guestId     String?
+  guest       Guest?    @relation(fields: [guestId], references: [id])
+  guestName   String
+  guestPhone  String
+  guestsCount Int
+  date        String
+  time        String
+  comment     String?
+  status      String    @default("NEW")
+  source      String    @default("SITE")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([locationId, date, status])
+}
+
+model Category {
+  id        String  @id @default(cuid())
+  slug      String  @unique
+  title     String
+  story     String?
+  sortOrder Int     @default(0)
+  dishes    Dish[]
+}
+
+model Dish {
+  id           String    @id @default(cuid())
+  categoryId   String
+  category     Category  @relation(fields: [categoryId], references: [id])
+  title        String
+  description  String?
+  weight       String?
+  price        Int
+  tags         String?
+  photo        String?
+  available    Boolean   @default(true)
+  isHitOfWeek  Boolean   @default(false)
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+}
+
+model MediaItem {
+  id        String   @id @default(cuid())
+  url       String
+  kind      String   @default("photo")
+  title     String?
+  inGallery Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model HeroSlide {
+  id        String   @id @default(cuid())
+  mediaUrl  String
+  title     String?
+  subtitle  String?
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+}
+
+model Promo {
+  id        String   @id @default(cuid())
+  title     String
+  text      String?
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+}
+
+model EventRequest {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  eventType   String
+  guestsCount Int?
+  date        String?
+  comment     String?
+  status      String   @default("NEW")
+  createdAt   DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  author    String
+  source    String   @default("YANDEX")
+  rating    Int
+  text      String
+  sentiment String?
+  answered  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("MANAGER")
+  createdAt    DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userEmail String
+  action    String
+  detail    String?
+  createdAt DateTime @default(now())
+}
+
+model Settings {
+  id             String  @id @default("global")
+  heroVideoUrl   String?
+  tgBotToken     String?
+  tgChatId       String?
+  bookingNotice  String?
+}
