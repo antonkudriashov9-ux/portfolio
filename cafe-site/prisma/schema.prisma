@@ -4,7 +4,12 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // Приложение ходит через transaction pooler (порт 6543): много коротких
+  // соединений, как нужно serverless-развёртыванию.
+  url       = env("DATABASE_URL")
+  // Миграции и db push — через session pooler (порт 5432): DDL требует сессии,
+  // через transaction pooler он падает. Локально можно указать тот же адрес.
+  directUrl = env("DIRECT_URL")
 }
 
 model Location {
