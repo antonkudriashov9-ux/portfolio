@@ -7,6 +7,7 @@ import {
   ExternalLink,
   Lock,
   Monitor,
+  PlugZap,
   RotateCw,
   ShieldAlert,
   Smartphone,
@@ -33,6 +34,11 @@ export function DemoBrowser({ project }: { project: Project }) {
   const [device, setDevice] = useState<Device>("desktop");
   const [frame, setFrame] = useState({ key: 0, loaded: false, blocked: false });
   const [scale, setScale] = useState(1);
+  // Доступность адреса демо отдельно от загрузки рамки: страница 404 хостинга
+  // грузится «успешно», поэтому по iframe судить нельзя
+  const [reach, setReach] = useState<"checking" | "ok" | "down" | "unknown">(
+    "checking"
+  );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const loadedRef = useRef(false);
@@ -53,6 +59,34 @@ export function DemoBrowser({ project }: { project: Project }) {
     }, 8000);
     return () => window.clearTimeout(timerRef.current);
   }, [frame.key]);
+
+  // Проверяем, ЖИВ ли адрес демо, а не только загрузилась ли рамка.
+  // Причина: если развёртывания нет, хостинг отдаёт свою страницу 404 —
+  // iframe считает её успешно загруженной, и посетитель видит чужую ошибку
+  // вместо объяснения. Запрос без чтения тела: нам нужен только факт ответа.
+  useEffect(() => {
+    let cancelled = false;
+    setReach("checking");
+    const timer = window.setTimeout(() => {
+      if (!cancelled) setReach("unknown");
+    }, 9000);
+
+    fetch(frameSrc, { method: "HEAD", mode: "no-cors", cache: "no-store" })
+      .then(() => {
+        if (!cancelled) setReach("ok");
+      })
+      .catch(() => {
+        // no-cors не даёт прочитать статус, поэтому сетевая ошибка — это
+        // единственный надёжный признак недоступного адреса
+        if (!cancelled) setReach("down");
+      })
+      .finally(() => window.clearTimeout(timer));
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, [frameSrc, frame.key]);
   const host = (() => {
     try {
       return new URL(project.liveUrl).hostname;
@@ -170,7 +204,40 @@ export function DemoBrowser({ project }: { project: Project }) {
             </div>
           ) : null}
 
-          {frame.blocked ? (
+          {reach === "down" ? (
+            <div className="absolute inset-0 grid place-items-center rounded-xl border border-border bg-card p-8">
+              <div className="max-w-sm space-y-4 text-center">
+                <PlugZap className="mx-auto size-10 text-muted-foreground" />
+                <p className="font-heading text-lg font-bold">
+                  Демо сейчас недоступно
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <span className="font-mono">{host}</span> не отвечает. Демо
+                  живёт на временном адресе и может быть выключено — код проекта
+                  доступен в репозитории.
+                </p>
+                <div className="flex flex-wrap justify-center gap-2 pt-1">
+                  {project.repoUrl ? (
+                    <Button asChild>
+                      <a href={project.repoUrl} target="_blank" rel="noreferrer">
+                        <ExternalLink />
+                        Смотреть код
+                      </a>
+                    </Button>
+                  ) : null}
+                  <Button variant="outline" onClick={reload}>
+                    <RotateCw />
+                    Попробовать снова
+                  </Button>
+                  <Button asChild variant="ghost">
+                    <Link href={`/projects/${project.slug}`}>К проекту</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {frame.blocked && reach !== "down" ? (
             <div className="absolute inset-0 grid place-items-center rounded-xl border border-border bg-card p-8">
               <div className="max-w-sm space-y-4 text-center">
                 <ShieldAlert className="mx-auto size-10 text-muted-foreground" />
