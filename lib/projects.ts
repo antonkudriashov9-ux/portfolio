@@ -30,7 +30,7 @@ export const projects: Project[] = [
     ],
     stack: ["Next.js 16", "React 19", "Prisma", "PostgreSQL", "GSAP", "Tailwind v4"],
     year: 2026,
-    liveUrl: "https://wrote-fat-from-response.trycloudflare.com",
+    liveUrl: "https://there-activation-purchasing-shield.trycloudflare.com",
     repoUrl: "https://github.com/antonkudriashov9-ux/portfolio/tree/main/cafe-site",
     screenshot: "/images/projects/ne-tolko-makarony.svg",
   },

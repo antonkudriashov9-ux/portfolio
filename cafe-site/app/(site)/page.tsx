@@ -7,7 +7,6 @@ import { PastaWidget } from "@/components/home/pasta-widget";
 import { ReviewsWall } from "@/components/home/reviews-wall";
 import { LocationsTeaser } from "@/components/home/locations-teaser";
 import { CtaBand } from "@/components/home/cta-band";
-import { AsciiBackdropZone } from "@/components/fx/ascii-backdrop-zone";
 
 const LOCATION_NOTES: Record<string, string> = {
   zegelya: "центр · новый ресторан · веранда",
@@ -48,26 +47,11 @@ export default async function HomePage() {
     <>
       <Hero slides={slides} videoUrl={settings?.heroVideoUrl ?? null} />
 
-      {/* Фон за секциями НИЖЕ первого экрана: там был ровный тёмный цвет.
-          Обёртка сама включает мерцание только после того, как первый экран
-          пройден — на нём хватает слайдера и своих анимаций.
-
-          Фотография выбрана замером по 115 файлам: панорама зала (photo-014)
-          давала нечитаемую кашу, она 77-я по разбросу яркости. У photo-017
-          разброс 72.7 при 29% тёмного и 22% светлого — сюжет читается. */}
-      <AsciiBackdropZone
-        src="/media/photos/photo-017.jpg"
-        cellSize={14}
-        animIntensity={26}
-        fps={12}
-        opacity={0.4}
-      >
-        <MarqueeStrip />
-        <StoryTimeline />
-        <SignatureDishes dishes={signature} photo="/media/photos/photo-005.jpg" />
-        <PastaWidget />
-        <ReviewsWall />
-      </AsciiBackdropZone>
+      <MarqueeStrip />
+      <StoryTimeline />
+      <SignatureDishes dishes={signature} photo="/media/photos/photo-005.jpg" />
+      <PastaWidget />
+      <ReviewsWall />
 
       <LocationsTeaser
         locations={locations.map((l) => ({
