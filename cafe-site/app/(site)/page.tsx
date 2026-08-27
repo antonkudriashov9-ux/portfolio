@@ -58,14 +58,14 @@ export default async function HomePage() {
               Первая попытка (photo-014, панорама зала) дала кашу — она 77-я из
               115 по разбросу яркости. Здесь разброс 72.7 при 29% тёмного и 22%
               светлого, поэтому сюжет читается символами. */}
+          {/* cellSize 14, а не 9: замер показал, что при 9 выходило 16 000
+              ячеек и 768 000 отрисовок в секунду — сайт лагал. При 14 ячеек
+              6 695, а перерисовываются только изменившиеся (2.5% за кадр). */}
           <AsciiBackdrop
             src="/media/photos/photo-017.jpg"
-            cellSize={9}
-            coverage={100}
-            density={24}
+            cellSize={14}
             animSpeed={80}
             animIntensity={30}
-            chromatic={15}
             opacity={0.4}
             className="size-full"
           />
