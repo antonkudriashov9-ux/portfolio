@@ -7,6 +7,7 @@ import { PastaWidget } from "@/components/home/pasta-widget";
 import { ReviewsWall } from "@/components/home/reviews-wall";
 import { LocationsTeaser } from "@/components/home/locations-teaser";
 import { CtaBand } from "@/components/home/cta-band";
+import { GenerativeBackdrop } from "@/components/fx/generative-backdrop";
 
 const LOCATION_NOTES: Record<string, string> = {
   zegelya: "центр · новый ресторан · веранда",
@@ -47,11 +48,30 @@ export default async function HomePage() {
     <>
       <Hero slides={slides} videoUrl={settings?.heroVideoUrl ?? null} />
 
-      <MarqueeStrip />
-      <StoryTimeline />
-      <SignatureDishes dishes={signature} photo="/media/photos/photo-005.jpg" />
-      <PastaWidget />
-      <ReviewsWall />
+      {/* Генеративный фон за секциями НИЖЕ первого экрана: на самом первом
+          экране его нет намеренно — там слайдер и свои анимации.
+          Слой закреплён, секции проплывают над ним. */}
+      <div className="relative isolate">
+        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+          {/* dotAlpha 0.045, а не 0.055: при 0.055 накопленный след давал
+              контраст приглушённого текста 4.40 при пороге WCAG 4.5.
+              Расчётом подобрано значение, где контраст 4.83, а след виден. */}
+          <GenerativeBackdrop
+            maxDots={420}
+            fps={20}
+            noise={0.012}
+            dotAlpha={0.045}
+            opacity={0.85}
+            className="size-full"
+          />
+        </div>
+
+        <MarqueeStrip />
+        <StoryTimeline />
+        <SignatureDishes dishes={signature} photo="/media/photos/photo-005.jpg" />
+        <PastaWidget />
+        <ReviewsWall />
+      </div>
 
       <LocationsTeaser
         locations={locations.map((l) => ({
