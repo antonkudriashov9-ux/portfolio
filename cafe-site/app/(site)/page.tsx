@@ -7,7 +7,7 @@ import { PastaWidget } from "@/components/home/pasta-widget";
 import { ReviewsWall } from "@/components/home/reviews-wall";
 import { LocationsTeaser } from "@/components/home/locations-teaser";
 import { CtaBand } from "@/components/home/cta-band";
-import { AsciiBackdrop } from "@/components/fx/ascii-backdrop";
+import { AsciiBackdropZone } from "@/components/fx/ascii-backdrop-zone";
 
 const LOCATION_NOTES: Record<string, string> = {
   zegelya: "центр · новый ресторан · веранда",
@@ -48,38 +48,26 @@ export default async function HomePage() {
     <>
       <Hero slides={slides} videoUrl={settings?.heroVideoUrl ?? null} />
 
-      {/* Ниже первого экрана фон был ровным тёмным. Здесь за секциями живёт
-          фотография зала, разложенная в ASCII-дизеринг: тёмная, читаемая, но
-          не пустая. Слой закреплён (fixed) — секции проплывают над ним,
-          создавая параллакс без дополнительного кода. */}
-      <div className="relative isolate">
-        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-          {/* Фотография выбрана замером, а не на глаз: эффекту нужен контраст.
-              Первая попытка (photo-014, панорама зала) дала кашу — она 77-я из
-              115 по разбросу яркости. Здесь разброс 72.7 при 29% тёмного и 22%
-              светлого, поэтому сюжет читается символами. */}
-          {/* cellSize 14, а не 9: замер показал, что при 9 выходило 16 000
-              ячеек и 768 000 отрисовок в секунду — сайт лагал. При 14 ячеек
-              6 695, а перерисовываются только изменившиеся (2.5% за кадр). */}
-          <AsciiBackdrop
-            src="/media/photos/photo-017.jpg"
-            cellSize={14}
-            animSpeed={80}
-            animIntensity={30}
-            opacity={0.4}
-            className="size-full"
-          />
-          {/* Вуаль поверх эффекта: без неё символы конкурируют с текстом.
-              Читаемость важнее зрелищности. */}
-          <div className="absolute inset-0 bg-background/72" />
-        </div>
+      {/* Фон за секциями НИЖЕ первого экрана: там был ровный тёмный цвет.
+          Обёртка сама включает мерцание только после того, как первый экран
+          пройден — на нём хватает слайдера и своих анимаций.
 
+          Фотография выбрана замером по 115 файлам: панорама зала (photo-014)
+          давала нечитаемую кашу, она 77-я по разбросу яркости. У photo-017
+          разброс 72.7 при 29% тёмного и 22% светлого — сюжет читается. */}
+      <AsciiBackdropZone
+        src="/media/photos/photo-017.jpg"
+        cellSize={14}
+        animIntensity={26}
+        fps={12}
+        opacity={0.4}
+      >
         <MarqueeStrip />
         <StoryTimeline />
         <SignatureDishes dishes={signature} photo="/media/photos/photo-005.jpg" />
         <PastaWidget />
         <ReviewsWall />
-      </div>
+      </AsciiBackdropZone>
 
       <LocationsTeaser
         locations={locations.map((l) => ({
